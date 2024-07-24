@@ -1,31 +1,45 @@
-from PySide6.QtWidgets import (
-    QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QLabel, 
-    QSpinBox, QCheckBox, QLineEdit, QPushButton, QMenuBar, QMenu, 
-    QTableWidget, QTableWidgetItem, QHeaderView, QMessageBox, QDialog
-)
-from PySide6.QtGui import QIcon
-from PySide6.QtCore import Qt, QPropertyAnimation, QAbstractAnimation, QParallelAnimationGroup
+from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QLabel, \
+    QSpinBox, QCheckBox, QLineEdit, QPushButton, QMenuBar, QMenu, QTableWidget, QTableWidgetItem, \
+    QHeaderView, QMessageBox, QDialog, QSplashScreen
+from PySide6.QtGui import QIcon, QPixmap
+from PySide6.QtCore import Qt, QUrl
+from PySide6.QtGui import QDesktopServices
+
 from password_generator import generate_password
 from password_manager import create_connection, add_password, fetch_passwords, delete_password
 from database import init_db, db_file
 
+class SplashScreen(QSplashScreen):
+    def __init__(self):
+        pixmap = QPixmap('resources/icon.png')  # Path to your splash screen image
+        super(SplashScreen, self).__init__(pixmap)
+        self.setMask(pixmap.mask())
+        self.show()
+
+    def finish(self, main_window):
+        super(SplashScreen, self).finish(main_window)
+        main_window.show()
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
-
         self.initUI()
         self.initDB()
 
     def initUI(self):
         self.setWindowTitle("Mensah Passwords")
         self.setGeometry(100, 100, 800, 600)
-        self.setWindowIcon(QIcon('icon.png'))
+        self.setWindowIcon(QIcon('resources/icon.ico'))  # Set the app icon here
 
         # Menu Bar
         menubar = self.menuBar()
         fileMenu = menubar.addMenu('File')
         viewPasswordsAction = fileMenu.addAction('View Saved Passwords')
         viewPasswordsAction.triggered.connect(self.onViewPasswords)
+
+        developerMenu = menubar.addMenu('Developer')
+        developerInfoAction = developerMenu.addAction('Developer Info')
+        developerInfoAction.triggered.connect(self.showDeveloperInfo)
 
         # Central Widget
         centralWidget = QWidget()
@@ -145,6 +159,10 @@ class MainWindow(QMainWindow):
         dialog = ManagePasswordsDialog(self, self.conn, self.onSavePassword)
         dialog.exec()
 
+    def showDeveloperInfo(self):
+        dialog = DeveloperInfoDialog(self)
+        dialog.exec()
+
 class ManagePasswordsDialog(QDialog):
     def __init__(self, parent, conn, saveCallback):
         super(ManagePasswordsDialog, self).__init__(parent)
@@ -227,18 +245,73 @@ class PasswordsDialog(QDialog):
 
         deleteButton = QPushButton("Delete")
         deleteButton.setStyleSheet("background-color: #dc3545; color: white; border: none; border-radius: 4px;")
-        deleteButton.clicked.connect(lambda: self.onDeletePassword(password_entry[0]))
+        deleteButton.clicked.connect(lambda: self.onDeletePassword(password_entry[0], row))
         self.passwordTable.setCellWidget(row, 3, deleteButton)
 
-    def onDeletePassword(self, password_id):
-        delete_password(self.conn, password_id)
-        self.loadPasswords()
+    def onDeletePassword(self, password_id, row):
+        reply = QMessageBox.question(self, 'Delete Password', 'Are you sure you want to delete this password?',
+                                     QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if reply == QMessageBox.Yes:
+            delete_password(self.conn, password_id)
+            self.passwordTable.removeRow(row)
 
-def main():
+class DeveloperInfoDialog(QDialog):
+    def __init__(self, parent):
+        super(DeveloperInfoDialog, self).__init__(parent)
+        self.initUI()
+
+    def initUI(self):
+        self.setWindowTitle("Developer Information")
+        self.setFixedSize(500, 600)  # Set width and height to ensure height is greater than width
+
+        layout = QVBoxLayout()
+
+        # Profile Image
+        self.profileImage = QLabel()
+        self.profileImage.setPixmap(QPixmap('resources/profile_photo.jpg').scaledToHeight(300))  # Adjust height as needed
+        self.profileImage.setAlignment(Qt.AlignCenter)
+        layout.addWidget(self.profileImage)
+
+        # Information Label
+        infoLabel = QLabel("""
+        <h2>Elijah Ekpen Mensah</h2>
+        <p>Elijah Ekpen Mensah is a software developer with Nigerian <br> and Ghanaian heritage.<br>
+        He is passionate about creating innovative solutions<br> in the technology space.</p>
+                           <br>
+            <b>For Employment, Co-founding and Donations Please Contact </b>
+                          <p>Email:<a href="mailto:stebarbara53@gmail.com">stebarbara53@gmail.com</a><br>
+                        Whatsapp:<a href="tel:">+2348155314343</a></p>
+                           
+                           
+                           
+        """)
+        infoLabel.setOpenExternalLinks(True)
+        infoLabel.setStyleSheet("font-size: 14px;")  # Ensure the text fits well within the dialog
+        layout.addWidget(infoLabel)
+
+        # LinkedIn Profile Button
+        linkedinButton = QPushButton("LinkedIn Profile")
+        linkedinButton.setStyleSheet("background-color: #0077b5; color: white; border: none; border-radius: 4px; padding: 10px;")
+        linkedinButton.clicked.connect(self.openLinkedInProfile)
+        layout.addWidget(linkedinButton)
+
+        # Personal Website Button
+        websiteButton = QPushButton("Personal Website")
+        websiteButton.setStyleSheet("background-color: #1a73e8; color: white; border: none; border-radius: 4px; padding: 10px;")
+        websiteButton.clicked.connect(self.openPersonalWebsite)
+        layout.addWidget(websiteButton)
+
+        self.setLayout(layout)
+
+    def openLinkedInProfile(self):
+        QDesktopServices.openUrl(QUrl("https://www.linkedin.com/in/elijah-ekpen-mensah"))
+
+    def openPersonalWebsite(self):
+        QDesktopServices.openUrl(QUrl("https://elijahmensahcreates.netlify.app/"))
+
+if __name__ == '__main__':
     app = QApplication([])
+    splash = SplashScreen()
     mainWindow = MainWindow()
-    mainWindow.show()
+    splash.finish(mainWindow)
     app.exec()
-
-if __name__ == "__main__":
-    main()

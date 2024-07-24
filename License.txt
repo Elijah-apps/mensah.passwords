@@ -1,0 +1,42 @@
+
+
+End User License Agreement (EULA)
+
+IMPORTANT: READ CAREFULLY
+
+This End User License Agreement ("Agreement") is a legal agreement between you (either an individual or a single entity) and Elijah Ekpen Mensah ("Company") for the use of the Mensah Passwords software ("Software").
+
+GRANT OF LICENSE
+The Company grants you a non-exclusive, non-transferable license to use the Software in accordance with the terms of this Agreement. You may install and use the Software on a single computer or device.
+
+RESTRICTIONS
+You may not:
+
+Modify, adapt, or translate the Software.
+Reverse engineer, decompile, disassemble, or otherwise attempt to derive the source code of the Software.
+Rent, lease, distribute, or lend the Software.
+Remove or alter any copyright or trademark notices or labels.
+OWNERSHIP
+The Software is licensed, not sold. The Company retains all ownership and intellectual property rights in the Software and any copies thereof.
+
+TERMINATION
+This Agreement will terminate automatically if you fail to comply with any term or condition. Upon termination, you must cease all use of the Software and destroy all copies.
+
+WARRANTY DISCLAIMER
+The Software is provided "as is" without warranty of any kind. The Company disclaims all warranties, whether express or implied, including but not limited to implied warranties of merchantability and fitness for a particular purpose.
+
+LIMITATION OF LIABILITY
+In no event shall the Company be liable for any indirect, incidental, special, consequential, or punitive damages, or any damages whatsoever, even if advised of the possibility of such damages.
+
+GOVERNING LAW
+This Agreement shall be governed by and construed in accordance with the laws of [Your Jurisdiction].
+
+ENTIRE AGREEMENT
+This Agreement constitutes the entire agreement between you and the Company regarding the Software and supersedes all prior agreements and understandings.
+
+If you have any questions about this Agreement, please contact Elijah Ekpen Mensah at [Your Contact Information].
+
+By installing or using the Software, you agree to be bound by the terms of this Agreement.
+
+Date: 2024-2050
+
