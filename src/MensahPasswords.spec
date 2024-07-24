@@ -1,7 +1,8 @@
 # -*- mode: python ; coding: utf-8 -*-
 from PyInstaller.utils.hooks import collect_data_files
-import os
+from PyInstaller.building.build_main import Analysis, PYZ, EXE
 
+# Analysis object setup
 a = Analysis(
     ['main.py'],  # Entry point of your application
     pathex=['.'],  # Adjust this if needed
@@ -9,13 +10,13 @@ a = Analysis(
     datas=[
         ('resources/icon.ico', '.'),  # Include icon.ico in the root directory of the build
         ('resources/icon.png', '.'),  # Include icon.png in the root directory of the build
-        ('passwords.db', '.'),  # Include password.db in the root directory of the build
-         ('resources/profile_photo.jpg', '.'),  # Include profile_photo in the root directory of the build
+        ('passwords.db', '.'),  # Include passwords.db in the root directory of the build
+        ('resources/profile_photo.jpg', '.'),  # Include profile_photo.jpg in the root directory of the build
     ],
     hiddenimports=[
         'password_manager',  # Include password_manager module
         'password_generator',  # Include password_generator module
-        'database',  # Include password_generator module
+        'database',  # Include database module
     ],
     hookspath=[],
     hooksconfig={},
@@ -24,7 +25,10 @@ a = Analysis(
     noarchive=False,
 )
 
+# Create the PYZ object
 pyz = PYZ(a.pure, a.zipped_data)
+
+# Create the EXE object
 exe = EXE(
     pyz,
     a.scripts,
