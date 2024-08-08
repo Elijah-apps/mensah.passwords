@@ -54,6 +54,29 @@
             <i class="fas fa-copy"></i>
           </button>
         </div>
+        <div class="mb-4">
+          <label for="password-length" class="block font-medium text-gray-700 mb-2">Password Length:</label>
+          <input type="range" id="password-length" min="8" max="32" value="16" class="w-full h-2 bg-gray-200 rounded-full appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-75">
+          <span id="password-length-value" class="text-gray-700 font-medium">16</span>
+        </div>
+        <div class="mb-4">
+          <label class="inline-flex items-center">
+            <input type="checkbox" id="uppercase" class="form-checkbox h-5 w-5 text-red-600">
+            <span class="ml-2 text-gray-700">Uppercase</span>
+          </label>
+          <label class="inline-flex items-center ml-4">
+            <input type="checkbox" id="lowercase" class="form-checkbox h-5 w-5 text-red-600">
+            <span class="ml-2 text-gray-700">Lowercase</span>
+          </label>
+          <label class="inline-flex items-center ml-4">
+            <input type="checkbox" id="numbers" class="form-checkbox h-5 w-5 text-red-600">
+            <span class="ml-2 text-gray-700">Numbers</span>
+          </label>
+          <label class="inline-flex items-center ml-4">
+            <input type="checkbox" id="special-chars" class="form-checkbox h-5 w-5 text-red-600">
+            <span class="ml-2 text-gray-700">Special Characters</span>
+          </label>
+        </div>
         <div class="flex justify-center space-x-4">
           <button id="generate-btn" class="bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
             Generate Password
@@ -113,11 +136,29 @@
     const passwordInput = document.getElementById('password-input');
     const copyButton = document.getElementById('copy-btn');
     const clearButton = document.getElementById('clear-btn');
+    const passwordLengthSlider = document.getElementById('password-length');
+    const passwordLengthValue = document.getElementById('password-length-value');
+    const uppercaseCheckbox = document.getElementById('uppercase');
+    const lowercaseCheckbox = document.getElementById('lowercase');
+    const numbersCheckbox = document.getElementById('numbers');
+    const specialCharsCheckbox = document.getElementById('special-chars');
 
     function generatePassword() {
-      const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+~`|}{[]:;?><,./-=';
+      let charset = '';
+      if (uppercaseCheckbox.checked) {
+        charset += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      }
+      if (lowercaseCheckbox.checked) {
+        charset += 'abcdefghijklmnopqrstuvwxyz';
+      }
+      if (numbersCheckbox.checked) {
+        charset += '0123456789';
+      }
+      if (specialCharsCheckbox.checked) {
+        charset += '!@#$%^&*()_+~`|}{[]:;?><,./-=';
+      }
       let password = '';
-      for (let i = 0; i < 16; i++) {
+      for (let i = 0; i < passwordLengthSlider.value; i++) {
         password += charset[Math.floor(Math.random() * charset.length)];
       }
       passwordInput.value = password;
@@ -133,6 +174,10 @@
 
     clearButton.addEventListener('click', () => {
       passwordInput.value = '';
+    });
+
+    passwordLengthSlider.addEventListener('input', () => {
+      passwordLengthValue.textContent = passwordLengthSlider.value;
     });
   </script>
 </body>
