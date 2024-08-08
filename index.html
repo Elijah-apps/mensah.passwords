@@ -48,7 +48,7 @@
           <i class="fab fa-windows"></i> Download for Windows
         </a>
         <a href="#GP" class="bg-white text-red-600 py-3 px-6 rounded-full font-semibold hover:bg-gray-100 text-shadow wow animate__animated animate__fadeInUp" data-wow-delay="0.4s">
-          <i class="fab fa-windows"></i> Generate Password
+          <i class="fab fa-globe"></i> Generate Password
         </a>
       </div>
     </div>
@@ -114,89 +114,104 @@
           <p class="text-gray-600 text-shadow">Organize and manage all your passwords in one secure place.</p>
         </div>
         <div class="bg-white p-6 rounded-lg shadow-lg wow animate__animated animate__fadeInUp" data-wow-delay="0.4s">
-          <h4 class="text-2xl font-bold text-red-600 mb-4 text-shadow">Add to Taskbar for Quick Access</h4>
-          <p class="text-gray-600 text-shadow">Pin the app to your taskbar for easy and quick access to your passwords.</p>
+          <h4 class="text-2xl font-bold text-red-600 mb-4 text-shadow">Secure Vault</h4>
+          <p class="text-gray-600 text-shadow">Keep your passwords safe with our advanced encryption methods.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section id="testimonials" class="bg-gray-100 py-20">
+    <div class="container mx-auto px-4 text-center">
+      <h3 class="text-3xl font-bold text-gray-800 mb-12 wow animate__animated animate__fadeInUp">Testimonials</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-white p-6 rounded-lg shadow-lg wow animate__animated animate__fadeInUp">
+          <p class="text-gray-600 mb-4 text-shadow">"Mensah Passwords is the best password manager I've ever used. It's user-friendly and keeps my passwords secure."</p>
+          <h4 class="text-xl font-bold text-red-600 text-shadow">- John Doe</h4>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-lg wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
+          <p class="text-gray-600 mb-4 text-shadow">"I love the password generation feature. It helps me create strong passwords with ease."</p>
+          <h4 class="text-xl font-bold text-red-600 text-shadow">- Jane Smith</h4>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Download Section -->
-  <section id="download" class="bg-gradient-to-r from-red-500 to-red-700 text-white py-20">
+  <section id="download" class="bg-red-600 text-white py-20">
     <div class="container mx-auto px-4 text-center">
       <h3 class="text-3xl font-bold mb-4 text-shadow wow animate__animated animate__fadeInUp">Download Mensah Passwords</h3>
-      <p class="text-lg mb-8 text-shadow wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">Available on Windows platforms. Download now to get started!</p>
-      <div class="flex justify-center space-x-4">
-        <a href="src/dist/MensahPasswords.exe" class="bg-white text-red-600 py-3 px-6 rounded-full font-semibold hover:bg-gray-100 flex items-center space-x-2 text-shadow wow animate__animated animate__fadeInUp" data-wow-delay="0.8s">
-          <i class="fab fa-windows"></i>
-          <span>Download for Windows</span>
-        </a>
-      </div>
+      <p class="text-lg mb-8 text-shadow wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">Get started with securing your passwords today. Download now for free.</p>
+      <a href="src/dist/MensahPasswords.exe" class="bg-white text-red-600 py-3 px-6 rounded-full font-semibold hover:bg-gray-100 text-shadow wow animate__animated animate__fadeInUp" data-wow-delay="0.4s">
+        <i class="fab fa-windows"></i> Download for Windows
+      </a>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="bg-red-600 text-white py-6 shadow-lg">
+  <footer class="bg-gray-900 text-white py-6">
     <div class="container mx-auto px-4 text-center">
-      <p class="text-shadow">&copy; 2024 Mensah Passwords. All rights reserved.</p>
+      <p class="text-sm">&copy; 2024 Elijah Ekpen Mensah. All rights reserved.</p>
     </div>
   </footer>
 
   <script>
-    const generateButton = document.getElementById('generate-btn');
-    const passwordInput = document.getElementById('password-input');
-    const copyButton = document.getElementById('copy-btn');
-    const clearButton = document.getElementById('clear-btn');
-    const passwordLengthValue = document.getElementById('password-length-value');
-    const uppercaseCheckbox = document.getElementById('uppercase');
-    const lowercaseCheckbox = document.getElementById('lowercase');
-    const numbersCheckbox = document.getElementById('numbers');
-    const specialCharsCheckbox = document.getElementById('special-chars');
-
-    $(function() {
-      $("#slider").slider({
-        range: "min",
-        min: 8,
-        max: 32,
+    $(function () {
+      // Initialize the slider with a default value and range
+      $('#slider').slider({
         value: 16,
-        slide: function(event, ui) {
-          $("#password-length-value").text(ui.value);
-          generatePassword();
+        min: 4,
+        max: 32,
+        step: 1,
+        slide: function (event, ui) {
+          $('#password-length-value').text(ui.value);
         }
       });
-    });
 
-    function generatePassword() {
-      let charset = '';
-      if (uppercaseCheckbox.checked) {
-        charset += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-      }
-      if (lowercaseCheckbox.checked) {
-        charset += 'abcdefghijklmnopqrstuvwxyz';
-      }
-      if (numbersCheckbox.checked) {
-        charset += '0123456789';
-      }
-      if (specialCharsCheckbox.checked) {
-        charset += '!@#$%^&*()_+~`|}{[]:;?><,./-=';
-      }
-      let password = '';
-      for (let i = 0; i < $("#slider").slider("value"); i++) {
-        password += charset[Math.floor(Math.random() * charset.length)];
-      }
-      passwordInput.value = password;
-    }
+      function generatePassword() {
+        const length = $('#slider').slider('value');
+        const hasUppercase = $('#uppercase').is(':checked');
+        const hasLowercase = $('#lowercase').is(':checked');
+        const hasNumbers = $('#numbers').is(':checked');
+        const hasSpecialChars = $('#special-chars').is(':checked');
 
-    generateButton.addEventListener('click', generatePassword);
+        let characters = '';
+        if (hasUppercase) characters += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        if (hasLowercase) characters += 'abcdefghijklmnopqrstuvwxyz';
+        if (hasNumbers) characters += '0123456789';
+        if (hasSpecialChars) characters += '!@#$%^&*()_+[]{}|;:,.<>?';
 
-    copyButton.addEventListener('click', () => {
-      passwordInput.select();
-      document.execCommand('copy');
-      alert('Password copied to clipboard!');
-    });
+        if (!characters) {
+          alert('Please select at least one character set.');
+          return '';
+        }
 
-    clearButton.addEventListener('click', () => {
-      passwordInput.value = '';
+        let password = '';
+        for (let i = 0; i < length; i++) {
+          password += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        return password;
+      }
+
+      $('#generate-btn').click(function () {
+        $('#password-input').val(generatePassword());
+      });
+
+      $('#copy-btn').click(function () {
+        const password = $('#password-input').val();
+        if (password) {
+          navigator.clipboard.writeText(password).then(() => {
+            alert('Password copied to clipboard!');
+          });
+        } else {
+          alert('No password to copy!');
+        }
+      });
+
+      $('#clear-btn').click(function () {
+        $('#password-input').val('');
+      });
     });
   </script>
 </body>
