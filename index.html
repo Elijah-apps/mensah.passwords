@@ -1,200 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="icon" href="src/resources/icon.ico" type="image/x-icon">
- <link rel="shortcut icon" href="src/resources/icon.ico" type="image/x-icon">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mensah Passwords</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js" integrity="sha512-6sSYJqDreZRZGkJ3b+YfdhB3MzmuP9R7X1QZ6g5aIXhRvR1Y/N/P47jmnkENm7YL3oqsmI6AK+V6AD99uWDnIw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
   <link rel="manifest" href="/manifest.json">
-
-  
-  <script>
-    new WOW().init();
-  </script>
-  <style>
-    .text-shadow {
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-    }
-  </style>
-  <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-MFRDQ2VL');</script>
-  <!-- End Google Tag Manager -->
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-D8JDN8KZSS"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-  
-    gtag('config', 'G-D8JDN8KZSS');
-  </script>
+  <meta name="theme-color" content="#DC2626">
+  <link rel="icon" href="/icon.png" type="image/png">
 </head>
-<body class="bg-white">
-  <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MFRDQ2VL"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
-  <!-- Header -->
-  <header class="bg-redy-600 shadow-lg" style="background-color: black!important;;">
-    <div class="container mx-auto px-4 py-6 flex justify-between items-center">
-      <h1 class="text-2xl font-bold text-white text-shadow wow animate__animated animate__fadeInDown">Mensah Passwords</h1>
-      <nav>
-        <ul class="flex space-x-6">
-          <li><a href="#features" class="text-white hover:text-red-200 text-shadow wow animate__animated animate__fadeInDown">Features</a></li>
-          <li><a href="#testimonials" class="text-white hover:text-red-200 text-shadow wow animate__animated animate__fadeInDown" data-wow-delay="0.4s">Testimonials</a></li>
-          <li><a href="#download" class="text-white hover:text-red-200 text-shadow wow animate__animated animate__fadeInDown" data-wow-delay="0.6s"> Download</a></li>
-        </ul>
-      </nav>
+<body class="bg-gray-100">
+  <header class="bg-red-600 shadow-lg">
+    <div class="container mx-auto px-4 py-6">
+      <h1 class="text-2xl font-bold text-white">Mensah Passwords</h1>
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="bg-gradient-to-r from-red-500 to-red-700 text-white py-20">
-    <div class="container mx-auto px-4 text-center">
-      <center>
-        <h2 class="text-4xl font-bold mb-4 text-shadow wow animate__animated animate__fadeInUp">Generate Secure Passwords with Mensah Passwords <br> Open Source Software</h2>
-      </center>
-      <p class="text-lg mb-8 text-shadow wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">The ultimate solution for securing and managing your passwords safely and efficiently.</p>
+  <main class="container mx-auto px-4 py-8">
+    <div class="bg-white p-8 rounded-lg shadow-2xl max-w-md mx-auto">
+      <h2 class="text-2xl font-bold text-gray-800 mb-4">Generate Password</h2>
+      <div class="flex items-center mb-4">
+        <input type="text" id="password-input" class="flex-1 px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" readonly>
+        <button id="copy-btn" class="bg-red-600 text-white py-2 px-4 rounded-r-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+          <i class="fas fa-copy"></i>
+        </button>
+      </div>
+      <div class="mb-4">
+        <label for="password-length" class="block font-medium text-gray-700 mb-2">Password Length:</label>
+        <input type="range" id="password-length" class="w-full" min="4" max="32" value="16" step="1">
+        <span id="password-length-value" class="text-gray-700 font-medium">16</span>
+      </div>
+      <div class="mb-4">
+        <label class="inline-flex items-center">
+          <input type="checkbox" id="uppercase" class="form-checkbox h-5 w-5 text-red-600">
+          <span class="ml-2 text-gray-700">Uppercase</span>
+        </label>
+        <label class="inline-flex items-center ml-4">
+          <input type="checkbox" id="lowercase" class="form-checkbox h-5 w-5 text-red-600">
+          <span class="ml-2 text-gray-700">Lowercase</span>
+        </label>
+        <label class="inline-flex items-center ml-4">
+          <input type="checkbox" id="numbers" class="form-checkbox h-5 w-5 text-red-600">
+          <span class="ml-2 text-gray-700">Numbers</span>
+        </label>
+        <label class="inline-flex items-center ml-4">
+          <input type="checkbox" id="special-chars" class="form-checkbox h-5 w-5 text-red-600">
+          <span class="ml-2 text-gray-700">Special Characters</span>
+        </label>
+      </div>
       <div class="flex justify-center space-x-4">
-        <a href="src/dist/MensahPasswords.exe" class="bg-white text-red-600 py-3 px-6 rounded-full font-semibold hover:bg-gray-100 text-shadow wow animate__animated animate__fadeInUp" data-wow-delay="0.4s">
-          <i class="fab fa-windows"></i> Download for Windows
-        </a>
-        <a href="#GP" class="bg-white text-red-600 py-3 px-6 rounded-full font-semibold hover:bg-gray-100 text-shadow wow animate__animated animate__fadeInUp" data-wow-delay="0.4s">
-          <i class="fa fa-globe"></i> Generate Online
-        </a>
+        <button id="generate-btn" class="bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+          Generate Password
+        </button>
+        <button id="clear-btn" class="text-red-600 py-2 px-4 rounded-lg hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+          Clear
+        </button>
       </div>
     </div>
-  </section>
 
-  <!-- Password Generation Section -->
-  <section class="py-20">
-    <div class="container mx-auto px-4">
-      <div id="GP" class="bg-white p-8 rounded-lg shadow-2xl mx-auto max-w-md wow animate__animated animate__fadeInUp">
-        <h3 class="text-2xl font-bold text-gray-800 mb-4 text-shadow">Generate Secure Password</h3>
-        <div  class="flex items-center mb-4">
-          <input type="text" id="password-input" class="flex-1 px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" readonly>
-          <button id="copy-btn" class="bg-red-600 text-white py-2 px-4 rounded-r-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
-            <i class="fas fa-copy"></i>
-          </button>
-        </div>
-        <div class="mb-4">
-          <label for="password-length" class="block font-medium text-gray-700 mb-2 text-shadow">Password Length:</label>
-          <input type="range" id="password-length" class="w-full" min="4" max="32" value="16" step="1">
-          <span id="password-length-value" class="text-gray-700 font-medium text-shadow">16</span>
-        </div>
-        <div class="mb-4">
-          <label class="inline-flex items-center text-shadow">
-            <input type="checkbox" id="uppercase" class="form-checkbox h-5 w-5 text-red-600">
-            <span class="ml-2 text-gray-700">Uppercase</span>
-          </label>
-          <label class="inline-flex items-center ml-4 text-shadow">
-            <input type="checkbox" id="lowercase" class="form-checkbox h-5 w-5 text-red-600">
-            <span class="ml-2 text-gray-700">Lowercase</span>
-          </label>
-          <label class="inline-flex items-center ml-4 text-shadow">
-            <input type="checkbox" id="numbers" class="form-checkbox h-5 w-5 text-red-600">
-            <span class="ml-2 text-gray-700">Numbers</span>
-          </label>
-          <label class="inline-flex items-center ml-4 text-shadow">
-            <input type="checkbox" id="special-chars" class="form-checkbox h-5 w-5 text-red-600">
-            <span class="ml-2 text-gray-700">Special Characters</span>
-          </label>
-        </div>
-        <div class="flex justify-center space-x-4">
-          <button id="generate-btn" class="bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 shadow-lg hover:shadow-xl transition-shadow duration-300 wow animate__animated animate__fadeInUp">
-            Generate Password
-          </button>
-          <button id="save-passwd">Save Password</button>
-          <button id="clear-btn" class="text-red-600 py-2 px-4 rounded-lg hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 shadow-lg hover:shadow-xl transition-shadow duration-300 wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
-            Clear
-          </button>
-        </div>
-      </div>
+    <div class="mt-8 bg-white p-8 rounded-lg shadow-2xl max-w-md mx-auto">
+      <h2 class="text-2xl font-bold text-gray-800 mb-4">Saved Passwords</h2>
+      <ul id="saved-passwords-list" class="space-y-2"></ul>
     </div>
-  </section>
-
-  <!-- Features Section -->
-  <section id="features" class="py-20">
-    <div class="container mx-auto px-4 text-center">
-      <h3 class="text-3xl font-bold text-gray-800 mb-12 wow animate__animated animate__fadeInUp">Features</h3>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="bg-white p-6 rounded-lg shadow-lg wow animate__animated animate__fadeInUp">
-          <h4 class="text-2xl font-bold text-red-600 mb-4 text-shadow">Generate Password</h4>
-          <p class="text-gray-600 text-shadow">Easily create strong and secure passwords with our built-in generator.</p>
-        </div>
-        <div class="bg-white p-6 rounded-lg shadow-lg wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
-          <h4 class="text-2xl font-bold text-red-600 mb-4 text-shadow">Manage Password</h4>
-          <p class="text-gray-600 text-shadow">Organize and manage all your passwords in one secure place.</p>
-        </div>
-        <div class="bg-white p-6 rounded-lg shadow-lg wow animate__animated animate__fadeInUp" data-wow-delay="0.4s">
-          <h4 class="text-2xl font-bold text-red-600 mb-4 text-shadow">Secure Vault</h4>
-          <p class="text-gray-600 text-shadow">Keep your passwords safe with our advanced encryption methods.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Testimonials Section -->
-  <section id="testimonials" class="bg-gray-100 py-20">
-    <div class="container mx-auto px-4 text-center">
-      <h3 class="text-3xl font-bold text-gray-800 mb-12 wow animate__animated animate__fadeInUp">Testimonials</h3>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div class="bg-white p-6 rounded-lg shadow-lg wow animate__animated animate__fadeInUp">
-          <p class="text-gray-600 mb-4 text-shadow">"Mensah Passwords is the best password manager I've ever used. It's user-friendly and keeps my passwords secure."</p>
-          <h4 class="text-xl font-bold text-red-600 text-shadow">- John Doe</h4>
-        </div>
-        <div class="bg-white p-6 rounded-lg shadow-lg wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
-          <p class="text-gray-600 mb-4 text-shadow">"I love the password generation feature. It helps me create strong passwords with ease."</p>
-          <h4 class="text-xl font-bold text-red-600 text-shadow">- Jane Smith</h4>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Download Section -->
-  <section id="download" class="bg-red-600 text-white py-20">
-    <div class="container mx-auto px-4 text-center">
-      <h3 class="text-3xl font-bold mb-4 text-shadow wow animate__animated animate__fadeInUp">Download Mensah Passwords</h3>
-      <p class="text-lg mb-8 text-shadow wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">Get started with securing your passwords today. Download now for free.</p>
-      <a href="src/dist/MensahPasswords.exe" class="bg-white text-red-600 py-3 px-6 rounded-full font-semibold hover:bg-gray-100 text-shadow wow animate__animated animate__fadeInUp" data-wow-delay="0.4s">
-        <i class="fab fa-windows"></i> Download for Windows
-      </a>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="bg-gray-900 text-white py-6">
-    <div class="container mx-auto px-4 text-center">
-      <p class="text-sm">&copy; 2024 Elijah Ekpen Mensah. All rights reserved.</p>
-    </div>
-  </footer>
+  </main>
 
   <script>
-    $(function () {
-      // Initialize the jQuery UI range input
-      $('#password-length').on('input', function () {
-        $('#password-length-value').text($(this).val());
+    // PWA registration
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(registration => {
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+          }, err => {
+            console.log('ServiceWorker registration failed: ', err);
+          });
       });
+    }
+
+    // Password generation and management
+    document.addEventListener('DOMContentLoaded', () => {
+      const passwordInput = document.getElementById('password-input');
+      const passwordLength = document.getElementById('password-length');
+      const passwordLengthValue = document.getElementById('password-length-value');
+      const uppercaseCheckbox = document.getElementById('uppercase');
+      const lowercaseCheckbox = document.getElementById('lowercase');
+      const numbersCheckbox = document.getElementById('numbers');
+      const specialCharsCheckbox = document.getElementById('special-chars');
+      const generateBtn = document.getElementById('generate-btn');
+      const copyBtn = document.getElementById('copy-btn');
+      const clearBtn = document.getElementById('clear-btn');
+      const savedPasswordsList = document.getElementById('saved-passwords-list');
 
       function generatePassword() {
-        const length = $('#password-length').val();
-        const hasUppercase = $('#uppercase').is(':checked');
-        const hasLowercase = $('#lowercase').is(':checked');
-        const hasNumbers = $('#numbers').is(':checked');
-        const hasSpecialChars = $('#special-chars').is(':checked');
+        const length = passwordLength.value;
+        const hasUppercase = uppercaseCheckbox.checked;
+        const hasLowercase = lowercaseCheckbox.checked;
+        const hasNumbers = numbersCheckbox.checked;
+        const hasSpecialChars = specialCharsCheckbox.checked;
 
         let characters = '';
         if (hasUppercase) characters += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -214,24 +117,62 @@
         return password;
       }
 
-      $('#generate-btn').click(function () {
-        $('#password-input').val(generatePassword());
+      function savePassword(password) {
+        let savedPasswords = JSON.parse(localStorage.getItem('savedPasswords')) || [];
+        savedPasswords.push(password);
+        localStorage.setItem('savedPasswords', JSON.stringify(savedPasswords));
+        updateSavedPasswordsList();
+      }
+
+      function updateSavedPasswordsList() {
+        savedPasswordsList.innerHTML = '';
+        const savedPasswords = JSON.parse(localStorage.getItem('savedPasswords')) || [];
+        savedPasswords.forEach((password, index) => {
+          const li = document.createElement('li');
+          li.className = 'flex justify-between items-center';
+          li.innerHTML = `
+            <span class="text-gray-700">Password ${index + 1}</span>
+            <button class="text-red-600 hover:text-red-800" onclick="removePassword(${index})">
+              <i class="fas fa-trash"></i>
+            </button>
+          `;
+          savedPasswordsList.appendChild(li);
+        });
+      }
+
+      window.removePassword = function(index) {
+        let savedPasswords = JSON.parse(localStorage.getItem('savedPasswords')) || [];
+        savedPasswords.splice(index, 1);
+        localStorage.setItem('savedPasswords', JSON.stringify(savedPasswords));
+        updateSavedPasswordsList();
+      };
+
+      passwordLength.addEventListener('input', () => {
+        passwordLengthValue.textContent = passwordLength.value;
       });
 
-      $('#copy-btn').click(function () {
-        const password = $('#password-input').val();
-        if (password) {
-          navigator.clipboard.writeText(password).then(() => {
-            alert('Password copied to clipboard!');
-          });
+      generateBtn.addEventListener('click', () => {
+        const password = generatePassword();
+        passwordInput.value = password;
+      });
+
+      copyBtn.addEventListener('click', () => {
+        if (passwordInput.value) {
+          navigator.clipboard.writeText(passwordInput.value)
+            .then(() => {
+              alert('Password copied to clipboard!');
+              savePassword(passwordInput.value);
+            });
         } else {
           alert('No password to copy!');
         }
       });
 
-      $('#clear-btn').click(function () {
-        $('#password-input').val('');
+      clearBtn.addEventListener('click', () => {
+        passwordInput.value = '';
       });
+
+      updateSavedPasswordsList();
     });
   </script>
 </body>
