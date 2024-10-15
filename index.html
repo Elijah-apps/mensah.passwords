@@ -6,65 +6,114 @@
   <title>Mensah Passwords</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notiflix@3.2.5/dist/notiflix-3.2.5.min.css">
   <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#DC2626">
+  <meta name="theme-color" content="#4F46E5">
   <link rel="icon" href="/icon.png" type="image/png">
+  <style>
+    .custom-select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%234F46E5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.5rem center;
+      background-size: 1.5em 1.5em;
+    }
+  </style>
 </head>
-<body class="bg-gray-100">
-  <header class="bg-red-600 shadow-lg">
+<body class="bg-gray-100 min-h-screen">
+  <header class="bg-indigo-600 shadow-lg">
     <div class="container mx-auto px-4 py-6">
-      <h1 class="text-2xl font-bold text-white">Mensah Passwords</h1>
+      <h1 class="text-3xl font-bold text-white">Mensah Passwords</h1>
     </div>
   </header>
 
   <main class="container mx-auto px-4 py-8">
-    <div class="bg-white p-8 rounded-lg shadow-2xl max-w-md mx-auto">
-      <h2 class="text-2xl font-bold text-gray-800 mb-4">Generate Password</h2>
-      <div class="flex items-center mb-4">
-        <input type="text" id="password-input" class="flex-1 px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" readonly>
-        <button id="copy-btn" class="bg-red-600 text-white py-2 px-4 rounded-r-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
-          <i class="fas fa-copy"></i>
-        </button>
+    <div class="bg-white p-8 rounded-lg shadow-2xl max-w-2xl mx-auto">
+      <div class="mb-6">
+        <label for="action-select" class="block text-sm font-medium text-gray-700 mb-2">Choose Action:</label>
+        <select id="action-select" class="custom-select block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+          <option value="generate">Generate Password</option>
+          <option value="encrypt">Encrypt Message</option>
+        </select>
       </div>
-      <div class="mb-4">
-        <label for="password-length" class="block font-medium text-gray-700 mb-2">Password Length:</label>
-        <input type="range" id="password-length" class="w-full" min="4" max="32" value="16" step="1">
-        <span id="password-length-value" class="text-gray-700 font-medium">16</span>
+
+      <div id="password-section">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Generate Password</h2>
+        <div class="flex items-center mb-4">
+          <input type="text" id="password-input" class="flex-1 px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" readonly>
+          <button id="copy-btn" class="bg-indigo-600 text-white py-2 px-4 rounded-r-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+            <i class="fas fa-copy"></i>
+          </button>
+        </div>
+        <div class="mb-4">
+          <label for="password-length" class="block font-medium text-gray-700 mb-2">Password Length: <span id="password-length-value">16</span></label>
+          <input type="range" id="password-length" class="w-full" min="4" max="32" value="16" step="1">
+        </div>
+        <div class="mb-4 grid grid-cols-2 gap-4">
+          <label class="inline-flex items-center">
+            <input type="checkbox" id="uppercase" class="form-checkbox h-5 w-5 text-indigo-600">
+            <span class="ml-2 text-gray-700">Uppercase</span>
+          </label>
+          <label class="inline-flex items-center">
+            <input type="checkbox" id="lowercase" class="form-checkbox h-5 w-5 text-indigo-600">
+            <span class="ml-2 text-gray-700">Lowercase</span>
+          </label>
+          <label class="inline-flex items-center">
+            <input type="checkbox" id="numbers" class="form-checkbox h-5 w-5 text-indigo-600">
+            <span class="ml-2 text-gray-700">Numbers</span>
+          </label>
+          <label class="inline-flex items-center">
+            <input type="checkbox" id="special-chars" class="form-checkbox h-5 w-5 text-indigo-600">
+            <span class="ml-2 text-gray-700">Special Characters</span>
+          </label>
+        </div>
+        <div class="flex justify-center space-x-4">
+          <button id="generate-btn" class="bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-150 ease-in-out transform hover:-translate-y-1 hover:scale-110">
+            Generate Password
+          </button>
+          <button id="clear-btn" class="text-indigo-600 py-2 px-4 rounded-lg hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-150 ease-in-out transform hover:-translate-y-1 hover:scale-110">
+            Clear
+          </button>
+        </div>
       </div>
-      <div class="mb-4">
-        <label class="inline-flex items-center">
-          <input type="checkbox" id="uppercase" class="form-checkbox h-5 w-5 text-red-600">
-          <span class="ml-2 text-gray-700">Uppercase</span>
-        </label>
-        <label class="inline-flex items-center ml-4">
-          <input type="checkbox" id="lowercase" class="form-checkbox h-5 w-5 text-red-600">
-          <span class="ml-2 text-gray-700">Lowercase</span>
-        </label>
-        <label class="inline-flex items-center ml-4">
-          <input type="checkbox" id="numbers" class="form-checkbox h-5 w-5 text-red-600">
-          <span class="ml-2 text-gray-700">Numbers</span>
-        </label>
-        <label class="inline-flex items-center ml-4">
-          <input type="checkbox" id="special-chars" class="form-checkbox h-5 w-5 text-red-600">
-          <span class="ml-2 text-gray-700">Special Characters</span>
-        </label>
-      </div>
-      <div class="flex justify-center space-x-4">
-        <button id="generate-btn" class="bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
-          Generate Password
-        </button>
-        <button id="clear-btn" class="text-red-600 py-2 px-4 rounded-lg hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
-          Clear
-        </button>
+
+      <div id="encrypt-section" class="hidden">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Encrypt Message</h2>
+        <div class="mb-4">
+          <label for="encryption-algorithm" class="block text-sm font-medium text-gray-700 mb-2">Encryption Algorithm:</label>
+          <select id="encryption-algorithm" class="custom-select block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+            <option value="caesar">Caesar Cipher</option>
+            <option value="vigenere">Vigenère Cipher</option>
+            <option value="base64">Base64 Encoding</option>
+          </select>
+        </div>
+        <div class="mb-4">
+          <label for="message-input" class="block text-sm font-medium text-gray-700 mb-2">Message:</label>
+          <textarea id="message-input" rows="4" class="block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"></textarea>
+        </div>
+        <div id="encryption-key-container" class="mb-4">
+          <label for="encryption-key" class="block text-sm font-medium text-gray-700 mb-2">Encryption Key:</label>
+          <input type="text" id="encryption-key" class="block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+        </div>
+        <div class="flex justify-center space-x-4">
+          <button id="encrypt-btn" class="bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-150 ease-in-out transform hover:-translate-y-1 hover:scale-110">
+            Encrypt Message
+          </button>
+        </div>
+        <div class="mt-4">
+          <label for="encrypted-output" class="block text-sm font-medium text-gray-700 mb-2">Encrypted Message:</label>
+          <textarea id="encrypted-output" rows="4" class="block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" readonly></textarea>
+        </div>
       </div>
     </div>
 
-    <div class="mt-8 bg-white p-8 rounded-lg shadow-2xl max-w-md mx-auto">
+    <div class="mt-8 bg-white p-8 rounded-lg shadow-2xl max-w-2xl mx-auto">
       <h2 class="text-2xl font-bold text-gray-800 mb-4">Saved Passwords</h2>
       <ul id="saved-passwords-list" class="space-y-2"></ul>
     </div>
   </main>
 
+  <script src="https://cdn.jsdelivr.net/npm/notiflix@3.2.5/dist/notiflix-3.2.5.min.js"></script>
   <script>
     // PWA registration
     if ('serviceWorker' in navigator) {
@@ -78,8 +127,38 @@
       });
     }
 
+    // Installation prompt
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      showInstallPromotion();
+    });
+
+    function showInstallPromotion() {
+      Notiflix.Report.info(
+        'Install App',
+        'Would you like to install Mensah Passwords for easier access?',
+        'Install',
+        () => {
+          deferredPrompt.prompt();
+          deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+              console.log('User accepted the install prompt');
+            } else {
+              console.log('User dismissed the install prompt');
+            }
+            deferredPrompt = null;
+          });
+        }
+      );
+    }
+
     // Password generation and management
     document.addEventListener('DOMContentLoaded', () => {
+      const actionSelect = document.getElementById('action-select');
+      const passwordSection = document.getElementById('password-section');
+      const encryptSection = document.getElementById('encrypt-section');
       const passwordInput = document.getElementById('password-input');
       const passwordLength = document.getElementById('password-length');
       const passwordLengthValue = document.getElementById('password-length-value');
@@ -91,6 +170,21 @@
       const copyBtn = document.getElementById('copy-btn');
       const clearBtn = document.getElementById('clear-btn');
       const savedPasswordsList = document.getElementById('saved-passwords-list');
+      const encryptionAlgorithm = document.getElementById('encryption-algorithm');
+      const messageInput = document.getElementById('message-input');
+      const encryptionKey = document.getElementById('encryption-key');
+      const encryptBtn = document.getElementById('encrypt-btn');
+      const encryptedOutput = document.getElementById('encrypted-output');
+
+      actionSelect.addEventListener('change', () => {
+        if (actionSelect.value === 'generate') {
+          passwordSection.classList.remove('hidden');
+          encryptSection.classList.add('hidden');
+        } else {
+          passwordSection.classList.add('hidden');
+          encryptSection.classList.remove('hidden');
+        }
+      });
 
       function generatePassword() {
         const length = passwordLength.value;
@@ -106,7 +200,7 @@
         if (hasSpecialChars) characters += '!@#$%^&*()_+[]{}|;:,.<>?';
 
         if (!characters) {
-          alert('Please select at least one character set.');
+          Notiflix.Report.failure('Error', 'Please select at least one character set.', 'OK');
           return '';
         }
 
@@ -129,22 +223,37 @@
         const savedPasswords = JSON.parse(localStorage.getItem('savedPasswords')) || [];
         savedPasswords.forEach((password, index) => {
           const li = document.createElement('li');
-          li.className = 'flex justify-between items-center';
+          li.className = 'flex justify-between items-center bg-gray-100 p-2 rounded';
           li.innerHTML = `
             <span class="text-gray-700">Password ${index + 1}</span>
-            <button class="text-red-600 hover:text-red-800" onclick="removePassword(${index})">
-              <i class="fas fa-trash"></i>
-            </button>
+            <div>
+              <button class="text-indigo-600 hover:text-indigo-800 mr-2" onclick="copyPassword(${index})">
+                <i class="fas fa-copy"></i>
+              </button>
+              <button class="text-red-600 hover:text-red-800" onclick="removePassword(${index})">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
           `;
           savedPasswordsList.appendChild(li);
         });
       }
+
+      window.copyPassword = function(index) {
+        const savedPasswords = JSON.parse(localStorage.getItem('savedPasswords')) || [];
+        const password = savedPasswords[index];
+        navigator.clipboard.writeText(password)
+          .then(() => {
+            Notiflix.Notify.success('Password copied to clipboard!');
+          });
+      };
 
       window.removePassword = function(index) {
         let savedPasswords = JSON.parse(localStorage.getItem('savedPasswords')) || [];
         savedPasswords.splice(index, 1);
         localStorage.setItem('savedPasswords', JSON.stringify(savedPasswords));
         updateSavedPasswordsList();
+        Notiflix.Notify.success('Password removed successfully');
       };
 
       passwordLength.addEventListener('input', () => {
@@ -160,16 +269,97 @@
         if (passwordInput.value) {
           navigator.clipboard.writeText(passwordInput.value)
             .then(() => {
-              alert('Password copied to clipboard!');
+              Notiflix.Notify.success('Password copied to clipboard!');
               savePassword(passwordInput.value);
             });
         } else {
-          alert('No password to copy!');
+          Notiflix.Notify.failure('No password to copy!');
         }
       });
 
       clearBtn.addEventListener('click', () => {
         passwordInput.value = '';
+      });
+
+      // Encryption functions
+      function caesarCipher(text, shift) {
+        return text.split('').map(char => {
+          if (char.match(/[a-z]/i)) {
+            const code = char.charCodeAt(0);
+            const isUpperCase = char === char.toUpperCase();
+            const shiftAmount = (code - (isUpperCase ? 65 : 97) + parseInt(shift)) % 26;
+            return String.fromCharCode(shiftAmount + (isUpperCase ? 65 : 97));
+          }
+          return char;
+        }).join('');
+      }
+
+      function vigenereCipher(text, key) {
+        let result = '';
+        let keyIndex = 0;
+        for (let i = 0; i < text.length; i++) {
+          const char = text[i];
+          if (char.match(/[a-z]/i)) {
+            const textCode = char.charCodeAt(0);
+            const keyChar = key[keyIndex % key.length].toUpperCase();
+            const keyCode = keyChar.charCodeAt(0) - 65;
+            const isUpperCase = char === char.toUpperCase();
+            const base = isUpperCase ? 65 : 97;
+            result += String.fromCharCode((textCode - base + keyCode) % 26 + base);
+            keyIndex++;
+          } else {
+            result += char;
+          }
+        }
+        return result;
+      }
+
+      function base64Encode(text) {
+        return btoa(text);
+      }
+
+      encryptionAlgorithm.addEventListener('change', () => {
+        const keyContainer = document.getElementById('encryption-key-container');
+        if (encryptionAlgorithm.value === 'base64') {
+          keyContainer.classList.add('hidden');
+        } else {
+          keyContainer.classList.remove('hidden');
+        }
+      });
+
+      encryptBtn.addEventListener('click', () => {
+        const algorithm = encryptionAlgorithm.value;
+        const message = messageInput.value;
+        const key = encryptionKey.value;
+
+        if (!message) {
+          Notiflix.Notify.failure('Please enter a message to encrypt');
+          return;
+        }
+
+        let encryptedMessage;
+        switch (algorithm) {
+          case 'caesar':
+            if (!key || isNaN(key)) {
+              Notiflix.Notify.failure('Please enter a valid number for the Caesar cipher shift');
+              return;
+            }
+            encryptedMessage = caesarCipher(message, key);
+            break;
+          case 'vigenere':
+            if (!key) {
+              Notiflix.Notify.failure('Please enter a key for the Vigenère cipher');
+              return;
+            }
+            encryptedMessage = vigenereCipher(message, key);
+            break;
+          case 'base64':
+            encryptedMessage = base64Encode(message);
+            break;
+        }
+
+        encryptedOutput.value = encryptedMessage;
+        Notiflix.Notify.success('Message encrypted successfully');
       });
 
       updateSavedPasswordsList();
